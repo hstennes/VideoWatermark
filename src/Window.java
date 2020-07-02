@@ -71,10 +71,10 @@ public class Window extends JFrame {
         add(panel);
     }
 
-    public void noVideosInFolder(){
+    public void noVideosFound(){
         JOptionPane.showMessageDialog(this,
-                "There are no mp4 files in the selected folder",
-                "Files not Found",
+                "The selected file was not an mp4, or the selected folder did not contain any mp4s",
+                "mp4 file(s) not found",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 

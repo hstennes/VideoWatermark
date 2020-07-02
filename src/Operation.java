@@ -33,7 +33,7 @@ public class Operation {
     public ArrayList<String> listFiles() throws IOException {
         if(!isFolder) {
             ArrayList<String> list = new ArrayList<>();
-            list.add(path);
+            if(path.endsWith(".mp4")) list.add(path);
             return list;
         }
         else {

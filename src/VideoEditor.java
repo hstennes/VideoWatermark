@@ -37,7 +37,7 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
     @Override
     protected void process(List<Integer> chunks) {
         if(chunks.size() > 0) {
-            if(chunks.get(0) == 0) window.noVideosInFolder();
+            if(chunks.get(0) == 0) window.noVideosFound();
             else window.getProgessBar().processStarted(chunks.get(0));
         }
         else window.getProgessBar().videoCompleted();
