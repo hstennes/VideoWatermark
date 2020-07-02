@@ -104,7 +104,7 @@ public class Operation {
      * @return The boolean
      */
     public boolean hasNext(){
-        return nameIndex < names.length | nameIndex == 0;
+        return nameIndex < names.length || nameIndex == 0;
     }
 
     /**
