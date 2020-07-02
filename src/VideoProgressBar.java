@@ -11,6 +11,7 @@ public class VideoProgressBar extends JProgressBar {
     }
 
     public void processStarted(int totalVideos){
+        reset();
         this.totalVideos = totalVideos;
         setMaximum(totalVideos);
         setString("0 of " + totalVideos + " complete...");
@@ -19,8 +20,9 @@ public class VideoProgressBar extends JProgressBar {
 
     public void videoCompleted(){
         videosComplete++;
-        if(videosComplete == totalVideos) {
-            reset();
+        if(videosComplete >= totalVideos) {
+            setValue(totalVideos);
+            setString("Done!");
             return;
         }
         setValue(videosComplete);
@@ -28,7 +30,6 @@ public class VideoProgressBar extends JProgressBar {
     }
 
     private void reset(){
-        setVisible(false);
         setMaximum(0);
         totalVideos = 0;
         videosComplete = 0;

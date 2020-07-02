@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -44,6 +46,7 @@ public class Window extends JFrame {
             fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if(fc.showOpenDialog(Window.this) == JFileChooser.APPROVE_OPTION) {
                 videoFolder = fc.getSelectedFile();
+                if(!inProgress) progressBar.setVisible(false);
                 fileLabel.setText(fc.getSelectedFile().getAbsolutePath());
             }
         });
@@ -70,12 +73,7 @@ public class Window extends JFrame {
                         "Please wait for watermarking to complete",
                         "Watermarking in progress",
                         JOptionPane.INFORMATION_MESSAGE);
-                else {
-                    inProgress = true;
-                    imageCreator.setText(watermarkBox.getText());
-                    imageCreator.createAndSaveImage("watermark.png");
-                    new VideoEditor(this, videoFolder).execute();
-                }
+                else startWatermarking();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -125,7 +123,26 @@ public class Window extends JFrame {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
+        doc.addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if(!inProgress) progressBar.setVisible(false);
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if(!inProgress) progressBar.setVisible(false);
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) { }
+        });
         return scrollPane;
+    }
+
+    private void startWatermarking() throws IOException{
+        inProgress = true;
+        imageCreator.setText(watermarkBox.getText());
+        imageCreator.createAndSaveImage("watermark.png");
+        new VideoEditor(this, videoFolder).execute();
     }
 
     public VideoProgressBar getProgessBar(){

@@ -17,13 +17,17 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
     }
 
     @Override
-    protected Void doInBackground() throws Exception {
-        File[] files = videoFolder.listFiles();
-        if(files == null) return null;
-        ArrayList<File> mp4s = new ArrayList<>();
-        for (File file : files) if (file.getAbsolutePath().endsWith(".mp4")) mp4s.add(file);
-        publish(mp4s.size());
-        for (File file : mp4s) watermarkVideo(file.getAbsolutePath());
+    protected Void doInBackground() {
+        try {
+            File[] files = videoFolder.listFiles();
+            if (files == null) return null;
+            ArrayList<File> mp4s = new ArrayList<>();
+            for (File file : files) if (file.getAbsolutePath().endsWith(".mp4")) mp4s.add(file);
+            publish(mp4s.size());
+            for (File file : mp4s) watermarkVideoWin(file.getAbsolutePath());
+        } catch (IOException | InterruptedException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -41,10 +45,12 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
         window.watermarkingDone();
     }
 
-    private void watermarkVideo(String videoPath) throws IOException, InterruptedException {
+    private void watermarkVideoWin(String videoPath) throws IOException, InterruptedException {
         String newPath = videoPath.split("\\.")[0] + "_new.mp4";
-        Process p = Runtime.getRuntime().exec("ffmpeg\\ffmpeg-20200620-29ea4e1-win64-static\\bin\\ffmpeg -y -i \"" + videoPath +
-                "\" -i watermark.png -filter_complex \"overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2\" \"" + newPath + "\"");
+        ProcessBuilder builder = new ProcessBuilder("ffmpeg\\ffmpeg-20200623-ce297b4-win64-static\\bin\\ffmpeg",
+                "-y", "-i", videoPath, "-i", "watermark.png", "-filter_complex",
+                "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", newPath);
+        Process p = builder.start();
         PipeStream out = new PipeStream(p.getInputStream(), System.out);
         PipeStream err = new PipeStream(p.getErrorStream(), System.err);
         out.start();
@@ -55,8 +61,8 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
 }
 
 class PipeStream extends Thread {
-    InputStream is;
-    OutputStream os;
+    private InputStream is;
+    private OutputStream os;
 
     public PipeStream(InputStream is, OutputStream os) {
         this.is = is;
