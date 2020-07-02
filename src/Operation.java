@@ -13,7 +13,7 @@ public class Operation {
     private int nameIndex;
 
     /**
-     * Creates a new operation for a VideoEditor to complete
+     * Creates a new operation for a VideoEditor to complete with a list of names to apply to the [name] keyword
      * @param isFolder True if a folder of videos will be watermarked, false if it is a single file
      * @param path The directory or specific file to be watermarked
      * @param userText The text entered by the user, including keywords
@@ -24,6 +24,19 @@ public class Operation {
         this.path = path;
         this.userText = userText;
         this.names = names;
+    }
+
+    /**
+     * Creates a new operation for a VideoEditor to complete
+     * @param isFolder True if a folder of videos will be watermarked, false if it is a single file
+     * @param path The directory or specific file to be watermarked
+     * @param userText The text entered by the user, including keywords ([name] not will be left as [name])
+     */
+    public Operation(boolean isFolder, String path, String userText){
+        this.isFolder = isFolder;
+        this.path = path;
+        this.userText = userText;
+        names = new String[0];
     }
 
     /**
