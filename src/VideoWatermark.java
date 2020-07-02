@@ -11,11 +11,11 @@ public class VideoWatermark {
         new VideoEditor(window, new Operation(folder, "hello [filename] \n [name] is cool")).execute();
         */
 
-        /*
-        String file = "C:\\Users\\Hank\\Desktop\\Videos2\\earth.mp4";
-        new VideoEditor(window, new Operation(file, "hello [name] \n [name] is amazing \n [filename] is also amazing",
+
+        String folder = "C:\\Users\\Hank\\Desktop\\Videos2";
+        new VideoEditor(window, new Operation(folder, "hello [name] \n [name] is amazing \n [filename] is also amazing",
                 new String[] {"Bob", "Joe", "Larry"})).execute();
-        */
+
 
         /*
         String folder = "C:\\Users\\Hank\\Desktop\\Videos1";

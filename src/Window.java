@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -9,7 +10,7 @@ import java.io.File;
 
 public class Window extends JFrame {
 
-    public static final int WIDTH = 500, HEIGHT = 600;
+    public static final int WIDTH = 450, HEIGHT = 500;
 
     private Font stepFont;
     private JTextPane watermarkBox;
@@ -32,20 +33,25 @@ public class Window extends JFrame {
     private void createGUI(){
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(createStepLabel("Step 1: Select video folder", 30));
 
+        panel.add(createStepLabel("Step 1: Select video folder", 30));
         JLabel fileLabel = new JLabel("(No folder selected)");
         fileLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton chooseVideo = new JButton("Choose folder");
         chooseVideo.setAlignmentX(Component.CENTER_ALIGNMENT);
         chooseVideo.addActionListener(actionEvent -> chooseVideoButtonPressed(fileLabel));
-
         panel.add(chooseVideo);
         panel.add(fileLabel);
-        panel.add(createStepLabel("Step 2: Enter watermark text", 40));
-        panel.add(createWatermarkBox());
-        panel.add(createStepLabel("Step 3: Watermark videos", 40));
 
+        panel.add(createStepLabel("Step 2: List customer names", 35));
+        NamesField namesField = new NamesField();
+        namesField.setMaximumSize(new Dimension(300, 25));
+        panel.add(namesField);
+
+        panel.add(createStepLabel("Step 3: Enter watermark text", 40));
+        panel.add(createWatermarkBox());
+
+        panel.add(createStepLabel("Step 4: Watermark videos", 40));
         JButton doWatermark = new JButton("Watermark Videos");
         doWatermark.setAlignmentX(Component.CENTER_ALIGNMENT);
         doWatermark.addActionListener(actionEvent -> watermarkButtonPressed());
@@ -55,7 +61,7 @@ public class Window extends JFrame {
         progressBar.setMaximumSize(new Dimension(230, 20));
         progressBar.setBorderPainted(true);
         JPanel spacingPanel = new JPanel();
-        spacingPanel.setMaximumSize(new Dimension(1, 50));
+        spacingPanel.setMaximumSize(new Dimension(1, 40));
         spacingPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panel.add(doWatermark);
@@ -93,7 +99,7 @@ public class Window extends JFrame {
         watermarkPanel.add(watermarkBox);
         JScrollPane scrollPane = new JScrollPane(watermarkPanel);
         scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-        scrollPane.setMaximumSize(new Dimension(250, 50));
+        scrollPane.setMaximumSize(new Dimension(300, 70));
         StyledDocument doc = watermarkBox.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
