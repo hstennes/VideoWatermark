@@ -8,11 +8,13 @@ import java.util.List;
 
 public class VideoEditor extends SwingWorker<Void, Integer> {
 
-    private File videoFolder;
     private Window window;
+    private String text;
+    private File videoFolder;
 
-    public VideoEditor(Window window, File videoFolder){
+    public VideoEditor(Window window, String text, File videoFolder){
         this.window = window;
+        this.text = text;
         this.videoFolder = new File(videoFolder.getAbsolutePath());
     }
 
@@ -24,7 +26,11 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
             ArrayList<File> mp4s = new ArrayList<>();
             for (File file : files) if (file.getAbsolutePath().endsWith(".mp4")) mp4s.add(file);
             publish(mp4s.size());
-            for (File file : mp4s) watermarkVideoWin(file.getAbsolutePath());
+            for (File file : mp4s) {
+                String path = file.getAbsolutePath();
+                Watermarker.watermarkVideoWin(text, path, path.split("\\.")[0] + "_new.mp4");
+                publish();
+            }
         } catch (IOException | InterruptedException e){
             e.printStackTrace();
         }
@@ -44,40 +50,6 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
     protected void done() {
         window.watermarkingDone();
     }
-
-    private void watermarkVideoWin(String videoPath) throws IOException, InterruptedException {
-        String newPath = videoPath.split("\\.")[0] + "_new.mp4";
-        ProcessBuilder builder = new ProcessBuilder("ffmpeg\\ffmpeg-20200623-ce297b4-win64-static\\bin\\ffmpeg",
-                "-y", "-i", videoPath, "-i", "watermark.png", "-filter_complex",
-                "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", newPath);
-        Process p = builder.start();
-        PipeStream out = new PipeStream(p.getInputStream(), System.out);
-        PipeStream err = new PipeStream(p.getErrorStream(), System.err);
-        out.start();
-        err.start();
-        p.waitFor();
-        publish();
-    }
 }
 
-class PipeStream extends Thread {
-    private InputStream is;
-    private OutputStream os;
 
-    public PipeStream(InputStream is, OutputStream os) {
-        this.is = is;
-        this.os = os;
-    }
-
-    public void run() {
-        byte[] buffer = new byte[1024];
-        int len;
-        try {
-            while((len = is.read(buffer)) >= 0){
-                os.write(buffer,0,len);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}

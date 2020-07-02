@@ -3,7 +3,7 @@ import javax.swing.*;
 public class VideoWatermark {
 
     public VideoWatermark(){
-        new Window(new ImageCreator());
+        new Window();
     }
 
     public static void main(String[] args){

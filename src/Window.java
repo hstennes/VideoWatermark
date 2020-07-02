@@ -15,14 +15,12 @@ public class Window extends JFrame {
     private Font stepFont;
     private JTextPane watermarkBox;
     private VideoProgressBar progressBar;
-    private ImageCreator imageCreator;
 
     private File videoFolder = null;
     private boolean inProgress = false;
 
-    public Window(ImageCreator imageCreator){
+    public Window(){
         super("Video Watermarking Tool");
-        this.imageCreator = imageCreator;
         stepFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
         setSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,23 +58,19 @@ public class Window extends JFrame {
         JButton doWatermark = new JButton("Watermark Videos");
         doWatermark.setAlignmentX(Component.CENTER_ALIGNMENT);
         doWatermark.addActionListener(actionEvent -> {
-            try {
-                if(videoFolder == null) JOptionPane.showMessageDialog(Window.this,
-                        "Please select the folder containing the videos to be watermarked",
-                        "Add Missing Info",
-                        JOptionPane.INFORMATION_MESSAGE);
-                else if(watermarkBox.getText().equals("")) JOptionPane.showMessageDialog(Window.this,
-                        "Please enter watermark text",
-                        "Add Missing Info",
-                        JOptionPane.INFORMATION_MESSAGE);
-                else if(inProgress) JOptionPane.showMessageDialog(Window.this,
-                        "Please wait for watermarking to complete",
-                        "Watermarking in progress",
-                        JOptionPane.INFORMATION_MESSAGE);
-                else startWatermarking();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            if(videoFolder == null) JOptionPane.showMessageDialog(Window.this,
+                    "Please select the folder containing the videos to be watermarked",
+                    "Add Missing Info",
+                    JOptionPane.INFORMATION_MESSAGE);
+            else if(watermarkBox.getText().equals("")) JOptionPane.showMessageDialog(Window.this,
+                    "Please enter watermark text",
+                    "Add Missing Info",
+                    JOptionPane.INFORMATION_MESSAGE);
+            else if(inProgress) JOptionPane.showMessageDialog(Window.this,
+                    "Please wait for watermarking to complete",
+                    "Watermarking in progress",
+                    JOptionPane.INFORMATION_MESSAGE);
+            else startWatermarking();
         });
 
         progressBar = new VideoProgressBar();
@@ -138,11 +132,9 @@ public class Window extends JFrame {
         return scrollPane;
     }
 
-    private void startWatermarking() throws IOException{
+    private void startWatermarking() {
         inProgress = true;
-        imageCreator.setText(watermarkBox.getText());
-        imageCreator.createAndSaveImage("watermark.png");
-        new VideoEditor(this, videoFolder).execute();
+        new VideoEditor(this, watermarkBox.getText(), videoFolder).execute();
     }
 
     public VideoProgressBar getProgessBar(){
