@@ -26,18 +26,6 @@ public class Operation {
     }
 
     /**
-     * Creates a new operation for a VideoEditor to complete
-     * @param path The directory or specific file to be watermarked
-     * @param userText The text entered by the user, including keywords ([name] not will be left as [name])
-     */
-    public Operation(String path, String userText){
-        isFolder = new File(path).isDirectory();
-        this.path = path;
-        this.userText = userText;
-        names = new String[0];
-    }
-
-    /**
      * Lists all files in the operation's folder, or returns the single file that the operation refers to
      * @return A list of files
      * @throws IOException If the operation was constructed for a folder, but the path was not a valid directory

@@ -78,10 +78,6 @@ public class Window extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void watermarkingStarted(){
-        inProgress = true;
-    }
-
     public void watermarkingDone(){
         inProgress = false;
     }
