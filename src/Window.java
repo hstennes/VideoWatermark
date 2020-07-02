@@ -14,9 +14,10 @@ public class Window extends JFrame {
 
     private Font stepFont;
     private JTextPane watermarkBox;
+    private NamesField namesField;
     private VideoProgressBar progressBar;
 
-    private File videoFolder = null;
+    private File videoPath = null;
     private boolean inProgress = false;
 
     public Window(){
@@ -44,7 +45,7 @@ public class Window extends JFrame {
         panel.add(fileLabel);
 
         panel.add(createStepLabel("Step 2: List customer names", 35));
-        NamesField namesField = new NamesField();
+        namesField = new NamesField();
         namesField.setMaximumSize(new Dimension(300, 25));
         panel.add(namesField);
 
@@ -121,16 +122,16 @@ public class Window extends JFrame {
 
     private void chooseVideoButtonPressed(JLabel fileLabel){
         JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         if(fc.showOpenDialog(Window.this) == JFileChooser.APPROVE_OPTION) {
-            videoFolder = fc.getSelectedFile();
+            videoPath = fc.getSelectedFile();
             if(!inProgress) progressBar.setVisible(false);
             fileLabel.setText(fc.getSelectedFile().getAbsolutePath());
         }
     }
 
     private void watermarkButtonPressed(){
-        if(videoFolder == null) JOptionPane.showMessageDialog(Window.this,
+        if(videoPath == null) JOptionPane.showMessageDialog(Window.this,
                 "Please select the folder containing the videos to be watermarked",
                 "Add Missing Info",
                 JOptionPane.INFORMATION_MESSAGE);
@@ -144,8 +145,10 @@ public class Window extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
         else {
             inProgress = true;
-            //need new watermarking code
-            //new VideoEditor(this, watermarkBox.getText(), videoFolder).execute();
+            new VideoEditor(this, new Operation(
+                    videoPath.getAbsolutePath(),
+                    watermarkBox.getText(),
+                    namesField.getNames())).execute();
         }
     }
 
