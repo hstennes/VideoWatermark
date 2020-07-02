@@ -4,6 +4,7 @@ public class VideoWatermark {
 
     private VideoWatermark(){
         Window window = new Window();
+        window.watermarkingStarted();
 
         /*
         String folder = "C:\\Users\\Hank\\Desktop\\Videos1";
@@ -22,11 +23,12 @@ public class VideoWatermark {
                 new String[] {"Gary"})).execute();
          */
 
-
+        /*
         String file = "C:\\Users\\Hank\\Desktop\\Videos2\\ocean.mp4";
         window.watermarkingStarted();
         new VideoEditor(window, new Operation(file, "[name][name][name]",
                 new String[] {"Bob"})).execute();
+         */
     }
 
     public static void main(String[] args){
