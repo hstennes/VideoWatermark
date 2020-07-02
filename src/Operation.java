@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Operation {
 
@@ -30,14 +31,18 @@ public class Operation {
      * @return A list of files
      * @throws IOException If the operation was constructed for a folder, but the path was not a valid directory
      */
-    public String[] listFiles() throws IOException {
-        if(!isFolder) return new String[] {path};
+    public ArrayList<String> listFiles() throws IOException {
+        if(!isFolder) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(path);
+            return list;
+        }
         else {
             File[] files = new File(path).listFiles();
             if(files == null) throw new IOException();
-            String[] fileStrs = new String[files.length];
-            for(int i = 0; i < files.length; i++) fileStrs[i] = files[i].getAbsolutePath();
-            return fileStrs;
+            ArrayList<String> mp4s = new ArrayList<>();
+            for(File f : files) if(f.getAbsolutePath().endsWith("mp4")) mp4s.add(f.getAbsolutePath());
+            return mp4s;
         }
     }
 

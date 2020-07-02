@@ -1,6 +1,6 @@
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoEditor extends SwingWorker<Void, Integer> {
@@ -18,8 +18,8 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
     @Override
     protected Void doInBackground() {
         try {
-            String[] files = operation.listFiles();
-            publish(files.length * operation.versionsPerFile());
+            ArrayList<String> files = operation.listFiles();
+            publish(files.size() * operation.versionsPerFile());
             for(String file : files){
                 operation.supplyFile(file);
                 while(operation.hasNext()){

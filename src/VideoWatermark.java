@@ -3,7 +3,10 @@ import javax.swing.*;
 public class VideoWatermark {
 
     private VideoWatermark(){
-        new Window();
+        Window window = new Window();
+
+        String folder = "C:\\Users\\Hank\\Desktop";
+        new VideoEditor(window, new Operation(true, folder, "hello [filename] \n [filename] is cool", new String[0])).execute();
     }
 
     public static void main(String[] args){
