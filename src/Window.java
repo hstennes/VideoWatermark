@@ -62,8 +62,8 @@ public class Window extends JFrame {
                     "Watermarking in progress",
                     JOptionPane.INFORMATION_MESSAGE);
             else {
-                inProgress = true;
-                new VideoEditor(this, watermarkBox.getText(), videoFolder).execute();
+                //inProgress = true;
+                //new VideoEditor(this, watermarkBox.getText(), videoFolder).execute();
             }
         });
 
@@ -86,6 +86,10 @@ public class Window extends JFrame {
                 "There are no mp4 files in the selected folder",
                 "Files not Found",
                 JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void watermarkingStarted(){
+        inProgress = true;
     }
 
     public void watermarkingDone(){

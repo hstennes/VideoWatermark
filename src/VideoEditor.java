@@ -1,33 +1,35 @@
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 public class VideoEditor extends SwingWorker<Void, Integer> {
 
     private Window window;
-    private String text;
-    private File videoFolder;
+    private Operation operation;
     private Watermarker watermarker;
 
-    public VideoEditor(Window window, String text, File videoFolder){
+    public VideoEditor(Window window, Operation operation){
         this.window = window;
-        this.text = text;
-        this.videoFolder = new File(videoFolder.getAbsolutePath());
+        this.operation = operation;
         this.watermarker = new Watermarker();
     }
 
     @Override
     protected Void doInBackground() {
-        File[] files = videoFolder.listFiles();
-        if (files == null) return null;
-        ArrayList<File> mp4s = new ArrayList<>();
-        for (File file : files) if (file.getAbsolutePath().endsWith(".mp4")) mp4s.add(file);
-        publish(mp4s.size());
-        for (File file : mp4s) {
-            String path = file.getAbsolutePath();
-            watermarker.watermarkVideoWin(text, path, path.split("\\.")[0] + "_new.mp4");
-            publish();
+        try {
+            String[] files = operation.listFiles();
+            publish(files.length * operation.versionsPerFile());
+            for(String file : files){
+                operation.supplyFile(file);
+                while(operation.hasNext()){
+                    String[] next = operation.getNextWatermark();
+                    watermarker.watermarkVideoWin(next[0], file, next[1]);
+                    publish();
+                }
+            }
+        } catch (IOException e){
+            e.printStackTrace();
         }
         return null;
     }
