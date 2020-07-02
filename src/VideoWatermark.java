@@ -5,12 +5,15 @@ public class VideoWatermark {
     private VideoWatermark(){
         Window window = new Window();
 
-        String folder = "C:\\Users\\Hank\\Desktop\\Videos";
-        //new VideoEditor(window, new Operation(true, folder, "hello [filename] \n [filename] is cool", new String[0])).execute();
+        String folder = "C:\\Users\\Hank\\Desktop\\Videos1";
+        new VideoEditor(window, new Operation(folder, "hello [filename] \n [filename] is cool")).execute();
 
-        String file = "C:\\Users\\Hank\\Desktop\\Videos\\earth.mp4";
-        new VideoEditor(window, new Operation(false, file, "hello [name] \n [name] is amazing",
+
+        /*
+        String file = "C:\\Users\\Hank\\Desktop\\Videos2\\earth.mp4";
+        new VideoEditor(window, new Operation(file, "hello [name] \n [name] is amazing",
                 new String[] {"Bob", "Joe", "Larry"})).execute();
+        */
     }
 
     public static void main(String[] args){
