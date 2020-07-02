@@ -6,7 +6,11 @@ public class VideoWatermark {
         Window window = new Window();
 
         String folder = "C:\\Users\\Hank\\Desktop\\Videos";
-        new VideoEditor(window, new Operation(true, folder, "hello [filename] \n [filename] is cool", new String[0])).execute();
+        //new VideoEditor(window, new Operation(true, folder, "hello [filename] \n [filename] is cool", new String[0])).execute();
+
+        String file = "C:\\Users\\Hank\\Desktop\\Videos\\earth.mp4";
+        new VideoEditor(window, new Operation(false, file, "hello [name] \n [name] is amazing",
+                new String[] {"Bob", "Joe", "Larry"})).execute();
     }
 
     public static void main(String[] args){

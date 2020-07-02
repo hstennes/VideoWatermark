@@ -69,8 +69,9 @@ public class Operation {
             return new String[] {watermark, addToFilename(workingFile, "_new")};
         }
         watermark = watermark.replace("[name]", names[nameIndex]);
+        String filename = addToFilename(workingFile, "_" + names[nameIndex]);
         nameIndex++;
-        return new String[] {watermark, addToFilename(workingFile, "_" + names[nameIndex])};
+        return new String[] {watermark, filename};
     }
 
     private String addToFilename(String name, String addition){
