@@ -5,7 +5,7 @@ public class VideoWatermark {
     private VideoWatermark(){
         Window window = new Window();
 
-        String folder = "C:\\Users\\Hank\\Desktop";
+        String folder = "C:\\Users\\Hank\\Desktop\\Videos";
         new VideoEditor(window, new Operation(true, folder, "hello [filename] \n [filename] is cool", new String[0])).execute();
     }
 

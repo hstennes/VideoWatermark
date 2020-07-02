@@ -79,11 +79,11 @@ public class Operation {
     }
 
     /**
-     * Returns the number of versions (which is equal to the number of names to insert) for the given file
+     * Returns the number of versions for the given file. The number of versions defaults to 1 if there are no names to insert
      * @return The number of versions
      */
     public int versionsPerFile(){
-        return names.length;
+        return Math.max(names.length, 1);
     }
 
     /**
