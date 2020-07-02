@@ -40,13 +40,7 @@ public class Window extends JFrame {
         JButton chooseVideo = new JButton("Choose folder");
         chooseVideo.setAlignmentX(Component.CENTER_ALIGNMENT);
         chooseVideo.addActionListener(actionEvent -> {
-            JFileChooser fc = new JFileChooser();
-            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            if(fc.showOpenDialog(Window.this) == JFileChooser.APPROVE_OPTION) {
-                videoFolder = fc.getSelectedFile();
-                if(!inProgress) progressBar.setVisible(false);
-                fileLabel.setText(fc.getSelectedFile().getAbsolutePath());
-            }
+            chooseVideoButtonPressed(fileLabel);
         });
 
         panel.add(chooseVideo);
@@ -133,6 +127,16 @@ public class Window extends JFrame {
             public void changedUpdate(DocumentEvent e) { }
         });
         return scrollPane;
+    }
+
+    private void chooseVideoButtonPressed(JLabel fileLabel){
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if(fc.showOpenDialog(Window.this) == JFileChooser.APPROVE_OPTION) {
+            videoFolder = fc.getSelectedFile();
+            if(!inProgress) progressBar.setVisible(false);
+            fileLabel.setText(fc.getSelectedFile().getAbsolutePath());
+        }
     }
 
     public VideoProgressBar getProgessBar(){
