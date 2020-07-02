@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class VideoWatermark {
 
-    public VideoWatermark(){
+    private VideoWatermark(){
         new Window();
     }
 

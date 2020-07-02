@@ -6,7 +6,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 
 public class Window extends JFrame {
 
@@ -39,9 +38,7 @@ public class Window extends JFrame {
         fileLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton chooseVideo = new JButton("Choose folder");
         chooseVideo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        chooseVideo.addActionListener(actionEvent -> {
-            chooseVideoButtonPressed(fileLabel);
-        });
+        chooseVideo.addActionListener(actionEvent -> chooseVideoButtonPressed(fileLabel));
 
         panel.add(chooseVideo);
         panel.add(fileLabel);
