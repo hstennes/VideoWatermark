@@ -11,28 +11,26 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
     private Window window;
     private String text;
     private File videoFolder;
+    private Watermarker watermarker;
 
     public VideoEditor(Window window, String text, File videoFolder){
         this.window = window;
         this.text = text;
         this.videoFolder = new File(videoFolder.getAbsolutePath());
+        this.watermarker = new Watermarker();
     }
 
     @Override
     protected Void doInBackground() {
-        try {
-            File[] files = videoFolder.listFiles();
-            if (files == null) return null;
-            ArrayList<File> mp4s = new ArrayList<>();
-            for (File file : files) if (file.getAbsolutePath().endsWith(".mp4")) mp4s.add(file);
-            publish(mp4s.size());
-            for (File file : mp4s) {
-                String path = file.getAbsolutePath();
-                Watermarker.watermarkVideoWin(text, path, path.split("\\.")[0] + "_new.mp4");
-                publish();
-            }
-        } catch (IOException | InterruptedException e){
-            e.printStackTrace();
+        File[] files = videoFolder.listFiles();
+        if (files == null) return null;
+        ArrayList<File> mp4s = new ArrayList<>();
+        for (File file : files) if (file.getAbsolutePath().endsWith(".mp4")) mp4s.add(file);
+        publish(mp4s.size());
+        for (File file : mp4s) {
+            String path = file.getAbsolutePath();
+            watermarker.watermarkVideoWin(text, path, path.split("\\.")[0] + "_new.mp4");
+            publish();
         }
         return null;
     }

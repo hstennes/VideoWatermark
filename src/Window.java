@@ -70,7 +70,10 @@ public class Window extends JFrame {
                     "Please wait for watermarking to complete",
                     "Watermarking in progress",
                     JOptionPane.INFORMATION_MESSAGE);
-            else startWatermarking();
+            else {
+                inProgress = true;
+                new VideoEditor(this, watermarkBox.getText(), videoFolder).execute();
+            }
         });
 
         progressBar = new VideoProgressBar();
@@ -130,11 +133,6 @@ public class Window extends JFrame {
             public void changedUpdate(DocumentEvent e) { }
         });
         return scrollPane;
-    }
-
-    private void startWatermarking() {
-        inProgress = true;
-        new VideoEditor(this, watermarkBox.getText(), videoFolder).execute();
     }
 
     public VideoProgressBar getProgessBar(){
