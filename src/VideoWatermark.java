@@ -3,7 +3,7 @@ import javax.swing.*;
 public class VideoWatermark {
 
     private VideoWatermark(){
-        Window window = new Window();
+        new Window();
         //window.watermarkingStarted();
 
         /*
@@ -29,9 +29,6 @@ public class VideoWatermark {
         new VideoEditor(window, new Operation(file, "[name][name][name]",
                 new String[] {"Bob"})).execute();
         */
-
-
-
     }
 
     public static void main(String[] args){
