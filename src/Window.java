@@ -8,7 +8,7 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.io.File;
 
-public class Window extends JFrame {
+public class Window extends JFrame implements DocumentListener {
 
     public static final int WIDTH = 450, HEIGHT = 500;
 
@@ -47,6 +47,7 @@ public class Window extends JFrame {
         panel.add(createStepLabel("Step 2: List customer names", 35));
         namesField = new NamesField();
         namesField.setMaximumSize(new Dimension(300, 25));
+        namesField.getDocument().addDocumentListener(this);
         panel.add(namesField);
 
         panel.add(createStepLabel("Step 3: Enter watermark text", 40));
@@ -101,18 +102,7 @@ public class Window extends JFrame {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        doc.addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                if(!inProgress) progressBar.setVisible(false);
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                if(!inProgress) progressBar.setVisible(false);
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) { }
-        });
+        doc.addDocumentListener(this);
         return scrollPane;
     }
 
@@ -151,4 +141,17 @@ public class Window extends JFrame {
     public VideoProgressBar getProgessBar(){
         return progressBar;
     }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        if(!inProgress) progressBar.setVisible(false);
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        if(!inProgress) progressBar.setVisible(false);
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) { }
 }
