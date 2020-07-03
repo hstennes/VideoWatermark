@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Window extends JFrame implements DocumentListener {
 
-    public static final int WIDTH = 450, HEIGHT = 500;
+    public static final int WIDTH = 475, HEIGHT = 525;
 
     private Font stepFont;
     private JTextPane watermarkBox;
@@ -33,42 +33,61 @@ public class Window extends JFrame implements DocumentListener {
 
     private void createGUI(){
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(createStepLabel("Step 1: Select file or folder", 30));
+        JPanel settingsPanel = new JPanel();
+        settingsPanel.setPreferredSize(new Dimension(475, 35));
+        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
+        settingsPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+
+        JButton settingsButton = new JButton();
+        ImageIcon icon = new ImageIcon("icon.png");
+        settingsButton.setIcon(icon);
+        settingsButton.setMargin(new Insets(0, 0, 0, 0));
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        settingsButton.addActionListener(actionEvent -> SettingsManager.showOptions());
+        settingsPanel.add(settingsButton);
+        panel.add(settingsPanel);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setPreferredSize(new Dimension(475, 450));
+
+        mainPanel.add(createStepLabel("Step 1: Select file or folder", 0));
         JLabel fileLabel = new JLabel("(No folder selected)");
         fileLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton chooseVideo = new JButton("Choose folder");
         chooseVideo.setAlignmentX(Component.CENTER_ALIGNMENT);
         chooseVideo.addActionListener(actionEvent -> chooseVideoButtonPressed(fileLabel));
-        panel.add(chooseVideo);
-        panel.add(fileLabel);
+        mainPanel.add(chooseVideo);
+        mainPanel.add(fileLabel);
 
-        panel.add(createStepLabel("Step 2: List customer names", 35));
+        mainPanel.add(createStepLabel("Step 2: List customer names", 35));
         namesField = new NamesField();
         namesField.setMaximumSize(new Dimension(300, 25));
         namesField.getDocument().addDocumentListener(this);
-        panel.add(namesField);
+        mainPanel.add(namesField);
 
-        panel.add(createStepLabel("Step 3: Enter watermark text", 40));
-        panel.add(createWatermarkBox());
+        mainPanel.add(createStepLabel("Step 3: Enter watermark text", 40));
+        mainPanel.add(createWatermarkBox());
 
-        panel.add(createStepLabel("Step 4: Watermark videos", 40));
+        mainPanel.add(createStepLabel("Step 4: Watermark videos", 30));
         JButton doWatermark = new JButton("Watermark Videos");
         doWatermark.setAlignmentX(Component.CENTER_ALIGNMENT);
         doWatermark.addActionListener(actionEvent -> watermarkButtonPressed());
 
         progressBar = new VideoProgressBar();
         progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        progressBar.setMaximumSize(new Dimension(230, 20));
+        progressBar.setMaximumSize(new Dimension(300, 20));
         progressBar.setBorderPainted(true);
         JPanel spacingPanel = new JPanel();
-        spacingPanel.setMaximumSize(new Dimension(1, 40));
+        spacingPanel.setMaximumSize(new Dimension(1, 55));
         spacingPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel.add(doWatermark);
-        panel.add(spacingPanel);
-        panel.add(progressBar);
+        mainPanel.add(doWatermark);
+        mainPanel.add(spacingPanel);
+        mainPanel.add(progressBar);
+        panel.add(mainPanel);
         add(panel);
     }
 
