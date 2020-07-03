@@ -7,7 +7,7 @@ public class WatermarkDocument extends DefaultStyledDocument {
 
     public WatermarkDocument(){
         StyleContext cont = StyleContext.getDefaultStyleContext();
-        attr = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.RED);
+        attr = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLUE);
         attrBlack = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
     }
 
