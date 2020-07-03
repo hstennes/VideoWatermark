@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ImageCreator {
 
-    public static final String PNG_FILE_NAME = "watermark.png";
+    public static final String PNG_FILE_NAME = "data/watermark.png";
 
     public static void createAndSaveImage(String text, int[] options) throws IOException {
         BufferedImage img = new BufferedImage(960, 540, BufferedImage.TYPE_INT_ARGB);

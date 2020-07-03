@@ -40,7 +40,7 @@ public class Window extends JFrame implements DocumentListener {
         settingsPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
         JButton settingsButton = new JButton();
-        ImageIcon icon = new ImageIcon("icon.png");
+        ImageIcon icon = new ImageIcon("data/icon.png");
         settingsButton.setIcon(icon);
         settingsButton.setMargin(new Insets(0, 0, 0, 0));
         settingsButton.setContentAreaFilled(false);

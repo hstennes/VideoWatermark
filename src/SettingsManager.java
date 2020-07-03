@@ -32,7 +32,7 @@ public class SettingsManager {
 
     public static int[] readOptions(){
         try {
-            File myObj = new File("options.txt");
+            File myObj = new File("data/options.txt");
             if(!myObj.exists()) {
                 writeOptions(new int[] {DEFAULT_TEXT_SIZE, DEFAULT_ALPHA});
                 return new int[] {DEFAULT_TEXT_SIZE, DEFAULT_ALPHA};
@@ -53,7 +53,7 @@ public class SettingsManager {
 
     private static void writeOptions(int[] options) {
         try {
-            FileWriter myWriter = new FileWriter("options.txt");
+            FileWriter myWriter = new FileWriter("data/options.txt");
             myWriter.write(options[0] + ", " + options[1]);
             myWriter.close();
         } catch (IOException e){
