@@ -14,19 +14,30 @@ public class WatermarkDocument extends DefaultStyledDocument {
     @Override
     public void insertString (int offset, String str, AttributeSet a) throws BadLocationException {
         super.insertString(offset, str, a);
-        setColors(getText(0, getLength()), offset);
+        setColors(getText(0, getLength()), offset, str.equals("\n"));
     }
 
     @Override
     public void remove (int offset, int len) throws BadLocationException {
         super.remove(offset, len);
-        setColors(getText(0, getLength()), offset);
+        setColors(getText(0, getLength()), offset, false);
     }
 
-    private void setColors(String text, int offset){
-        int start = text.substring(0, offset).indexOf("\n") + 1;
+    private void setColors(String text, int offset, boolean all){
+        System.out.println(all);
+        if(all){
+            setCharacterAttributes(0, text.length(), attrBlack, false);
+            addColor(text, "[name]", 0, text.length());
+            addColor(text, "[filename]", 0, text.length());
+            return;
+        }
+
+        int start = text.substring(0, offset).lastIndexOf("\n") + 1;
         int end = text.substring(offset).indexOf("\n");
         if(end == -1) end = text.length();
+
+        System.out.println(start + ", " + end);
+
         setCharacterAttributes(start, end, attrBlack, false);
         addColor(text, "[name]", start, end);
         addColor(text, "[filename]", start, end);
