@@ -35,7 +35,7 @@ public class Window extends JFrame implements DocumentListener {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(createStepLabel("Step 1: Select video folder", 30));
+        panel.add(createStepLabel("Step 1: Select file or folder", 30));
         JLabel fileLabel = new JLabel("(No folder selected)");
         fileLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton chooseVideo = new JButton("Choose folder");
