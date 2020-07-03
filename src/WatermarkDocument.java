@@ -24,7 +24,7 @@ public class WatermarkDocument extends DefaultStyledDocument {
     }
 
     private void setColors(String text, int offset, boolean all){
-        System.out.println(all);
+        //System.out.println(all);
         if(all){
             setCharacterAttributes(0, text.length(), attrBlack, false);
             addColor(text, "[name]", 0, text.length());
@@ -33,8 +33,10 @@ public class WatermarkDocument extends DefaultStyledDocument {
         }
 
         int start = text.substring(0, offset).lastIndexOf("\n") + 1;
+        //System.out.println(text.substring(offset));
         int end = text.substring(offset).indexOf("\n");
         if(end == -1) end = text.length();
+        else end += offset;
 
         System.out.println(start + ", " + end);
 
