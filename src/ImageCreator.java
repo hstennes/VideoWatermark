@@ -8,15 +8,15 @@ public class ImageCreator {
 
     public static final String PNG_FILE_NAME = "watermark.png";
 
-    public static void createAndSaveImage(String text) throws IOException {
+    public static void createAndSaveImage(String text, int[] options) throws IOException {
         BufferedImage img = new BufferedImage(960, 540, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = img.createGraphics();
         g2d.setRenderingHint(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
 
-        g2d.setFont(new Font("Arial", Font.BOLD, 55));
-        g2d.setColor(new Color(150, 150, 150, 127));
+        g2d.setFont(new Font("Arial", Font.BOLD, options[0]));
+        g2d.setColor(new Color(150, 150, 150, options[1]));
 
         String[] lines = text.split("\n");
         int lineHeight = g2d.getFontMetrics().getHeight();

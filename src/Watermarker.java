@@ -7,6 +7,11 @@ import java.io.OutputStream;
 public class Watermarker {
 
     private String prevText;
+    private int[] options;
+
+    public Watermarker(){
+        options = SettingsManager.readOptions();
+    }
 
     /**
      * Watermarks the video using the given text (newline characters create new lines in the watermark)
@@ -17,7 +22,7 @@ public class Watermarker {
     public void watermarkVideo(@NotNull String text, String videoPath, String newPath) {
         try {
             if(!text.equals(prevText)) {
-                ImageCreator.createAndSaveImage(text);
+                ImageCreator.createAndSaveImage(text, options);
                 prevText = text;
             }
             if(VideoWatermark.OS.contains("win")) runFfmpegWin(videoPath, newPath);
