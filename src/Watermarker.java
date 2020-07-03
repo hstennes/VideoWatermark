@@ -39,8 +39,11 @@ public class Watermarker {
         p.waitFor();
     }
 
-    private void runFfmpegMac(String videoPath, String newPath){
-
+    private void runFfmpegMac(String videoPath, String newPath) throws IOException, InterruptedException{
+        ProcessBuilder builder = new ProcessBuilder("./ffmpeg", "-y", "-i", videoPath, "-i", "watermark.png", "-filter_complex",
+                "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", newPath);
+        Process p = builder.start();
+        p.waitFor();
     }
 }
 
