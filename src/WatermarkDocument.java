@@ -33,7 +33,6 @@ public class WatermarkDocument extends DefaultStyledDocument {
         int index = -1;
         while(true){
             index = text.indexOf(str, index + 1);
-            System.out.println(index);
             if(index == -1) break;
             setCharacterAttributes(index, str.length(), attr, false);
         }
