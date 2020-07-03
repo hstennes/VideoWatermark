@@ -129,13 +129,25 @@ public class Window extends JFrame implements DocumentListener {
                 "Please wait for watermarking to complete",
                 "Watermarking in progress",
                 JOptionPane.INFORMATION_MESSAGE);
-        else {
-            inProgress = true;
-            new VideoEditor(this, new Operation(
-                    videoPath.getAbsolutePath(),
-                    watermarkBox.getText(),
-                    namesField.getNames())).execute();
+        else doWatermark();
+    }
+
+    private void doWatermark(){
+        if(namesField.getNames().length > 0 && !namesField.getText().contains("[name]")){
+            String[] options = new String[] {"Continue", "Cancel"};
+            int choice = JOptionPane.showOptionDialog(this,
+                    "You specified a list of names, but you did not include [name] in your watermark. \nDo you want to continue " +
+                            "with watermarking?",
+                    "Unused names",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[1]);
+            if(choice != 0) return;
         }
+        inProgress = true;
+        new VideoEditor(this, new Operation(
+                videoPath.getAbsolutePath(),
+                watermarkBox.getText(),
+                namesField.getNames())).execute();
     }
 
     public VideoProgressBar getProgessBar(){

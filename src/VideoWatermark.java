@@ -12,7 +12,6 @@ public class VideoWatermark {
         } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
-
         SwingUtilities.invokeLater(VideoWatermark::new);
     }
 }
