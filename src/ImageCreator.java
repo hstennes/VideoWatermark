@@ -9,7 +9,7 @@ public class ImageCreator {
     public static final String PNG_FILE_NAME = "data/watermark.png";
 
     public static void createAndSaveImage(String text, int[] options) throws IOException {
-        BufferedImage img = new BufferedImage(960, 540, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage img = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = img.createGraphics();
         g2d.setRenderingHint(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
