@@ -92,7 +92,7 @@ public class Window extends JFrame implements DocumentListener {
     }
 
     private JScrollPane createWatermarkBox(){
-        watermarkBox = new JTextPane();
+        watermarkBox = new JTextPane(new WatermarkDocument());
         JPanel watermarkPanel = new JPanel(new BorderLayout());
         watermarkPanel.add(watermarkBox);
         JScrollPane scrollPane = new JScrollPane(watermarkPanel);
