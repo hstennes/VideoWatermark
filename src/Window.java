@@ -133,7 +133,7 @@ public class Window extends JFrame implements DocumentListener {
     }
 
     private void doWatermark(){
-        if(namesField.getNames().length > 0 && !namesField.getText().contains("[name]")){
+        if(namesField.getNames().length > 0 && !watermarkBox.getText().contains("[name]")){
             String[] options = new String[] {"Continue", "Cancel"};
             int choice = JOptionPane.showOptionDialog(this,
                     "You specified a list of names, but you did not include [name] in your watermark. \nDo you want to continue " +
