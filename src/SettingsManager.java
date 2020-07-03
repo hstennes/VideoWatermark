@@ -11,8 +11,8 @@ public class SettingsManager {
 
     public static void showOptions(){
         int[] options = readOptions();
-        JSpinner sizeSpinner = new JSpinner(new SpinnerNumberModel(options[0], 10, 100, 1));
-        JSpinner alphaSpinner = new JSpinner(new SpinnerNumberModel(options[1], 50, 255, 1));
+        JSpinner sizeSpinner = new JSpinner(new SpinnerNumberModel(options[0], 10, 150, 1));
+        JSpinner alphaSpinner = new JSpinner(new SpinnerNumberModel(options[1], 0, 255, 1));
 
         JPanel myPanel = new JPanel();
         myPanel.add(new JLabel("Text size:"));

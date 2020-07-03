@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Window extends JFrame implements DocumentListener {
 
-    public static final int WIDTH = 475, HEIGHT = 525;
+    public static final int WIDTH = 450, HEIGHT = 525;
 
     private Font stepFont;
     private JTextPane watermarkBox;
@@ -35,7 +35,7 @@ public class Window extends JFrame implements DocumentListener {
         JPanel panel = new JPanel();
 
         JPanel settingsPanel = new JPanel();
-        settingsPanel.setPreferredSize(new Dimension(475, 35));
+        settingsPanel.setPreferredSize(new Dimension(450, 35));
         settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
         settingsPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
@@ -51,7 +51,7 @@ public class Window extends JFrame implements DocumentListener {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setPreferredSize(new Dimension(475, 450));
+        mainPanel.setPreferredSize(new Dimension(450, 450));
 
         mainPanel.add(createStepLabel("Step 1: Select file or folder", 0));
         JLabel fileLabel = new JLabel("(No folder selected)");
