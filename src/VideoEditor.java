@@ -24,7 +24,7 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
                 operation.supplyFile(file);
                 while(operation.hasNext()){
                     String[] next = operation.getNextWatermark();
-                    watermarker.watermarkVideoWin(next[0], file, next[1]);
+                    watermarker.watermarkVideo(next[0], file, next[1]);
                     publish();
                 }
             }

@@ -14,13 +14,14 @@ public class Watermarker {
      * @param videoPath The path of the video to watermark
      * @param newPath The location to which the watermarked video will be saved
      */
-    public void watermarkVideoWin(@NotNull String text, String videoPath, String newPath) {
+    public void watermarkVideo(@NotNull String text, String videoPath, String newPath) {
         try {
             if(!text.equals(prevText)) {
                 ImageCreator.createAndSaveImage(text);
                 prevText = text;
             }
-            runFfmpegWin(videoPath, newPath);
+            if(VideoWatermark.OS.contains("win")) runFfmpegWin(videoPath, newPath);
+            else if(VideoWatermark.OS.contains("mac")) runFfmpegMac(videoPath, newPath);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -36,6 +37,10 @@ public class Watermarker {
         out.start();
         err.start();
         p.waitFor();
+    }
+
+    private void runFfmpegMac(String videoPath, String newPath){
+
     }
 }
 
