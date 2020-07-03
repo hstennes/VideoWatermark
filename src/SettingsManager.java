@@ -17,7 +17,7 @@ public class SettingsManager {
         JPanel myPanel = new JPanel();
         myPanel.add(new JLabel("Text size:"));
         myPanel.add(sizeSpinner);
-        myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+        myPanel.add(Box.createHorizontalStrut(15));
         myPanel.add(new JLabel("Transparency: "));
         myPanel.add(alphaSpinner);
 
