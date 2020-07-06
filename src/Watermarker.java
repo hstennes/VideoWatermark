@@ -48,6 +48,10 @@ public class Watermarker {
         ProcessBuilder builder = new ProcessBuilder("./ffmpeg", "-y", "-i", videoPath, "-i", ImageCreator.PNG_FILE_NAME, "-filter_complex",
                 "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", newPath);
         Process p = builder.start();
+        PipeStream out = new PipeStream(p.getInputStream(), System.out);
+        PipeStream err = new PipeStream(p.getErrorStream(), System.err);
+        out.start();
+        err.start();
         p.waitFor();
     }
 }
