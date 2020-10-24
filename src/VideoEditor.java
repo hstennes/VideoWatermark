@@ -37,10 +37,14 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
     @Override
     protected void process(List<Integer> chunks) {
         if(chunks.size() > 0) {
+            //an integer number of videos was published, which means that the watermarking has just started
             if(chunks.get(0) == 0) window.noVideosFound();
             else window.getProgessBar().processStarted(chunks.get(0));
         }
-        else window.getProgessBar().videoCompleted();
+        else {
+            //no value was published, so the publish() call was made to indicate that a video has been completed
+            window.getProgessBar().videoCompleted();
+        }
     }
 
     @Override
