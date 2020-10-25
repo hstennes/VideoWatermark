@@ -1,9 +1,11 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoEditor extends SwingWorker<Void, Integer> {
+public class VideoEditor extends SwingWorker<Boolean, Integer> {
 
     private Window window;
     private Operation operation;
@@ -16,22 +18,29 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
     }
 
     @Override
-    protected Void doInBackground() {
+    protected Boolean doInBackground() {
+        ArrayList<String> files;
         try {
-            ArrayList<String> files = operation.listFiles();
-            publish(files.size() * operation.versionsPerFile());
-            for(String file : files){
-                operation.supplyFile(file);
-                while(operation.hasNext()){
-                    String[] next = operation.getNextWatermark();
+            files = operation.listFiles();
+        } catch (IOException e) {
+            displayErrorEDT(e);
+            return false;
+        }
+        publish(files.size() * operation.versionsPerFile());
+        for(String file : files){
+            operation.supplyFile(file);
+            while(operation.hasNext()){
+                String[] next = operation.getNextWatermark();
+                try{
                     watermarker.watermarkVideo(next[0], file, next[1]);
                     publish();
+                } catch(IOException | InterruptedException e){
+                    displayErrorEDT(e);
+                    return false;
                 }
             }
-        } catch (IOException e){
-            e.printStackTrace();
         }
-        return null;
+        return true;
     }
 
     @Override
@@ -49,7 +58,19 @@ public class VideoEditor extends SwingWorker<Void, Integer> {
 
     @Override
     protected void done() {
-        window.watermarkingDone();
+        try {
+            window.watermarkingDone(get());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void displayErrorEDT(Exception e) {
+        SwingUtilities.invokeLater(() -> {
+            e.printStackTrace();
+            String msg = String.format("Unexpected problem: %s", e.toString());
+            JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        });
     }
 }
 

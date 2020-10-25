@@ -29,6 +29,11 @@ public class VideoProgressBar extends JProgressBar {
         setString(videosComplete + " of " + totalVideos + " complete...");
     }
 
+    public void error(){
+        setString("An error occurred");
+        setValue(totalVideos);
+    }
+
     private void reset(){
         setMaximum(0);
         totalVideos = 0;

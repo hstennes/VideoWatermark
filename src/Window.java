@@ -98,8 +98,9 @@ public class Window extends JFrame implements DocumentListener {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void watermarkingDone(){
+    public void watermarkingDone(boolean successful){
         inProgress = false;
+        if(!successful) progressBar.error();
     }
 
     private JLabel createStepLabel(String text, int topPadding){
