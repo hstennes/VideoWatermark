@@ -3,6 +3,7 @@ import javax.swing.*;
 public class VideoWatermark {
 
     public static String OS = System.getProperty("os.name").toLowerCase();
+    public static String VERSION = "v1.4";
 
     private VideoWatermark(){
         new Window();

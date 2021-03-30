@@ -21,7 +21,7 @@ public class Window extends JFrame implements DocumentListener {
     private boolean inProgress = false;
 
     public Window(){
-        super("Video Watermarking Tool");
+        super("Video Watermarking Tool " + VideoWatermark.VERSION);
         stepFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
         setSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
