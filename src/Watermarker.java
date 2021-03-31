@@ -31,7 +31,7 @@ public class Watermarker {
     private void runFfmpegWin(String videoPath, String newPath) throws IOException, InterruptedException{
         ProcessBuilder builder = new ProcessBuilder("ffmpeg\\ffmpeg-win64-static\\bin\\ffmpeg",
                 "-y", "-i", videoPath, "-i", ImageCreator.PNG_FILE_NAME, "-filter_complex",
-                "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", newPath);
+                "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", "-acodec", "copy", newPath);
         Process p = builder.start();
         PipeStream out = new PipeStream(p.getInputStream(), System.out);
         PipeStream err = new PipeStream(p.getErrorStream(), System.err);
@@ -42,7 +42,7 @@ public class Watermarker {
 
     private void runFfmpegMac(String videoPath, String newPath) throws IOException, InterruptedException{
         ProcessBuilder builder = new ProcessBuilder("./ffmpeg", "-y", "-i", videoPath, "-i", ImageCreator.PNG_FILE_NAME, "-filter_complex",
-                "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", newPath);
+                "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", "-acodec", "copy", newPath);
         Process p = builder.start();
         PipeStream out = new PipeStream(p.getInputStream(), System.out);
         PipeStream err = new PipeStream(p.getErrorStream(), System.err);
