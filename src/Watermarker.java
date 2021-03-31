@@ -1,10 +1,10 @@
 import com.sun.istack.internal.NotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 public class Watermarker {
+
+    private static final String LOG_FILE_NAME = "data/log.txt";
 
     private String prevText;
     private int[] options;
@@ -34,7 +34,11 @@ public class Watermarker {
                 "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", "-acodec", "copy", newPath);
         Process p = builder.start();
         PipeStream out = new PipeStream(p.getInputStream(), System.out);
-        PipeStream err = new PipeStream(p.getErrorStream(), System.err);
+
+        File targetFile = new File(LOG_FILE_NAME);
+        OutputStream fileStream = new FileOutputStream(targetFile, true);
+
+        PipeStream err = new PipeStream(p.getErrorStream(), fileStream);
         out.start();
         err.start();
         p.waitFor();
@@ -45,7 +49,11 @@ public class Watermarker {
                 "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", "-acodec", "copy", newPath);
         Process p = builder.start();
         PipeStream out = new PipeStream(p.getInputStream(), System.out);
-        PipeStream err = new PipeStream(p.getErrorStream(), System.err);
+
+        File targetFile = new File(LOG_FILE_NAME);
+        OutputStream fileStream = new FileOutputStream(targetFile, true);
+
+        PipeStream err = new PipeStream(p.getErrorStream(), fileStream);
         out.start();
         err.start();
         p.waitFor();
