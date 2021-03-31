@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+//RELEASE 1.4.1
 public class VideoWatermark {
 
     public static String OS = System.getProperty("os.name").toLowerCase();
