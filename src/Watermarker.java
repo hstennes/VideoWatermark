@@ -29,7 +29,7 @@ public class Watermarker {
     }
 
     private void runFfmpegWin(String videoPath, String newPath) throws IOException, InterruptedException{
-        ProcessBuilder builder = new ProcessBuilder("ffmpeg\\ffmpeg-win64-static\\bin\\ffmpeg",
+        ProcessBuilder builder = new ProcessBuilder("ffmpeg\\bin\\ffmpeg",
                 "-y", "-i", videoPath, "-i", ImageCreator.PNG_FILE_NAME, "-filter_complex",
                 "overlay=x=(main_w-overlay_w)/2:y=(main_h-overlay_h)/2", "-acodec", "copy", newPath);
         Process p = builder.start();
