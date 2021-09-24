@@ -1,6 +1,6 @@
 # VideoWatermark
 
-VideoWatermark is a tool for batch watermarking videos that I developed for WhiteWave Trading Strategies.  The UI uses java swing and the watermarking is done by [FFmpeg](https://www.ffmpeg.org/).
+VideoWatermark is a tool for batch watermarking videos that I developed for WhiteWave Trading Strategies.  The UI uses java swing and the video editing is handled by [FFmpeg](https://www.ffmpeg.org/).
 
 ![VideoWatermark](https://i.imgur.com/MgvznVz.png)
 
