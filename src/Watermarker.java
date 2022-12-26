@@ -1,5 +1,3 @@
-import com.sun.istack.internal.NotNull;
-
 import java.io.*;
 
 public class Watermarker {
@@ -19,7 +17,7 @@ public class Watermarker {
      * @param videoPath The path of the video to watermark
      * @param newPath The location to which the watermarked video will be saved
      */
-    public void watermarkVideo(@NotNull String text, String videoPath, String newPath) throws IOException, InterruptedException{
+    public void watermarkVideo(String text, String videoPath, String newPath) throws IOException, InterruptedException{
         if(!text.equals(prevText)) {
             ImageCreator.createAndSaveImage(text, options);
             prevText = text;

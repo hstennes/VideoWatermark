@@ -12,6 +12,8 @@ public class Operation {
     private String workingFile;
     private int nameIndex;
 
+    private final String[] supportedFormats = new String[] {".mp4", ".mov"};
+
     /**
      * Creates a new operation for a VideoEditor to complete with a list of names to apply to the [name] keyword
      * @param path The directory or specific file to be watermarked
@@ -25,6 +27,22 @@ public class Operation {
         this.names = names;
     }
 
+    private boolean supportedVideoFile(String path){
+        for(String format : supportedFormats){
+            if(path.endsWith(format)) return true;
+        }
+        return false;
+    }
+
+    private String stripExt(String path) {
+        String[] split = path.split("\\.");
+        StringBuilder name = new StringBuilder();
+        for(int i = 0; i < split.length - 1; i++) {
+            name.append(split[i]);
+        }
+        return name.toString();
+    }
+
     /**
      * Lists all files in the operation's folder, or returns the single file that the operation refers to
      * @return A list of files
@@ -33,15 +51,15 @@ public class Operation {
     public ArrayList<String> listFiles() throws IOException {
         if(!isFolder) {
             ArrayList<String> list = new ArrayList<>();
-            if(path.endsWith(".mp4")) list.add(path);
+            if(supportedVideoFile(path)) list.add(path);
             return list;
         }
         else {
             File[] files = new File(path).listFiles();
             if(files == null) throw new IOException();
-            ArrayList<String> mp4s = new ArrayList<>();
-            for(File f : files) if(f.getAbsolutePath().endsWith("mp4")) mp4s.add(f.getAbsolutePath());
-            return mp4s;
+            ArrayList<String> videos = new ArrayList<>();
+            for(File f : files) if(supportedVideoFile(f.getAbsolutePath())) videos.add(f.getAbsolutePath());
+            return videos;
         }
     }
 
@@ -62,7 +80,7 @@ public class Operation {
      */
     public String[] getNextWatermark(){
         if(nameIndex >= names.length && nameIndex != 0) return null;
-        String watermark = userText.replace("[filename]", new File(workingFile).getName().replace(".mp4", ""));
+        String watermark = userText.replace("[filename]", stripExt(new File(workingFile).getName()));
         if(names.length == 0) {
             nameIndex++;
             return new String[] {watermark, addToFilename(workingFile, "_new")};
