@@ -93,8 +93,8 @@ public class Window extends JFrame implements DocumentListener {
 
     public void noVideosFound(){
         JOptionPane.showMessageDialog(this,
-                "The selected file was not an mp4, or the selected folder did not contain any mp4s",
-                "mp4 file(s) not found",
+                "The selected file was not a supported video format, or the selected folder did not contain any supported videos",
+                "Video file(s) not found",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
